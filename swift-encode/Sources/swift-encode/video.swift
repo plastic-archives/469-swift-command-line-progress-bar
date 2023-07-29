@@ -25,18 +25,20 @@ class Video {
     init(file: File) {
         self.file = file
     }
-    
+
     private var _ffprobe: FFProbeOutput?
-    
-    private func ffprobe() throws -> FFProbeOutput  {
+
+    private func ffprobe() throws -> FFProbeOutput {
         if _ffprobe == nil {
             let stdout = Pipe()
             let stderr = Pipe()
-            let task = makeTask(command: "ffprobe", arguments: [
+            let task = makeTask(
+                command: "ffprobe",
+                arguments: [
                     file.path,
                     "-print_format", "json",
                     "-v", "quiet",
-                    "-show_streams"
+                    "-show_streams",
                 ], stdout: stdout, stderr: stderr)
             task.launch()
             task.waitUntilExit()
@@ -47,17 +49,17 @@ class Video {
         }
         return _ffprobe!
     }
-    
+
     func totalFrames() throws -> Int {
         return Int(try ffprobe().streams.first!.nbFrames) ?? 0
     }
-    
+
     func avgFrameRate() throws -> Float {
         let avgFrameRateString = try ffprobe().streams.first!.avgFrameRate
         let parts = avgFrameRateString.split(separator: "/")
         assert(parts.count == 2)
         let n = Float(parts[0])!
         let d = Float(parts[1])!
-        return n/d
+        return n / d
     }
 }

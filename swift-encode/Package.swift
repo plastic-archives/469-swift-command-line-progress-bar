@@ -12,7 +12,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.3.1"),
         .package(url: "https://github.com/JohnSundell/Files", from: "4.1.1"),
         .package(url: "https://github.com/jamf/Subprocess", from: "1.1.0"),
-        .package(name: "SwiftProgressBar", path: "../swift-progress-bar")
+        .package(name: "SwiftProgressBar", path: "../swift-progress-bar"),
     ],
     targets: [
         .target(
@@ -21,7 +21,7 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "Files", package: "Files"),
                 .product(name: "Subprocess", package: "Subprocess"),
-                .product(name: "SwiftProgressBar", package: "SwiftProgressBar")
+                .product(name: "SwiftProgressBar", package: "SwiftProgressBar"),
             ]),
         .testTarget(
             name: "swift-encodeTests",

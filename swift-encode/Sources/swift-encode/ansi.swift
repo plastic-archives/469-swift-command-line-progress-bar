@@ -1,13 +1,13 @@
 struct ColorStack {
     private static var colors: [ANSIColor] = [.unset]
-    
+
     static var currentColor: ANSIColor? { colors.last }
-    
+
     static func push(_ color: ANSIColor) {
         colors.append(color)
         color.setCurrent()
     }
-    
+
     static func pop() {
         colors.removeLast()
         currentColor?.setCurrent()
@@ -24,11 +24,11 @@ enum ANSIColor: String {
     case cyan = "\u{001B}[0;36m"
     case white = "\u{001B}[0;37m"
     case unset = "\u{001B}[0m"
-    
+
     func setCurrent() {
         print(rawValue)
     }
-    
+
     static func with(_ color: ANSIColor, _ block: () throws -> Void) rethrows {
         ColorStack.push(color)
         defer { ColorStack.pop() }

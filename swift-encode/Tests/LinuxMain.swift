@@ -1,5 +1,4 @@
 import XCTest
-
 import swift_encodeTests
 
 var tests = [XCTestCaseEntry]()
